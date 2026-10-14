@@ -43,15 +43,15 @@ class Tile extends StatelessWidget {
           HitType.hit => Colors.green,
           HitType.partial => Colors.yellow,
           HitType.miss => Colors.grey,
-          _ => Colors.white
-        }
+          _ => Colors.white,
+        },
       ),
       child: Center(
         child: Text(
           letter.toUpperCase(),
-          style: Theme.of(context).textTheme.titleLarge
-        )
-      )
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      ),
     );
   }
 }
@@ -78,21 +78,24 @@ class _GamePageState extends State<GamePage> {
               children: [
                 for (var letter in guess)
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.5),
-                    child: Tile(letter.char, letter.type)
-                  )
-              ]
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 2.5,
+                      vertical: 2.5,
+                    ),
+                    child: Tile(letter.char, letter.type),
+                  ),
+              ],
             ),
-            GuessInput(
-              onSubmitGuess: (String guess) {
-                setState(() {
-                  _game.guess(guess);
-                });
-              }
-            )
-        ]
-      )
-    )
+          GuessInput(
+            onSubmitGuess: (String guess) {
+              setState(() {
+                _game.guess(guess);
+              });
+            },
+          ),
+        ],
+      ),git a
+    );
   }
 }
 
@@ -107,7 +110,7 @@ class GuessInput extends StatefulWidget {
 
 class _GuessInputState extends State<GuessInput> {
   final TextEditingController _textEditingController = TextEditingController();
-  
+
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -137,21 +140,21 @@ class _GuessInputState extends State<GuessInput> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(35)),
-                )
+                ),
               ),
               controller: _textEditingController,
               onSubmitted: (input) {
                 _onSubmit();
-              }
-            )
-          )
+              },
+            ),
+          ),
         ),
         IconButton(
           padding: EdgeInsets.zero,
           icon: const Icon(Icons.arrow_circle_up),
-          onPressed: _onSubmit
-        )
-      ]
+          onPressed: _onSubmit,
+        ),
+      ],
     );
   }
 }
