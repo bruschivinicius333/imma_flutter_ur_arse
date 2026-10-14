@@ -1,5 +1,3 @@
-// TODO: onde parei: https://docs.flutter.dev/learn/pathway/tutorial/stateful-widget
-
 import 'package:flutter/material.dart';
 import 'game.dart';
 
@@ -34,9 +32,11 @@ class Tile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 60,
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
+      curve: Curves.bounceIn,
       height: 60,
+      width: 60,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade300),
         color: switch (hitType) {
@@ -57,36 +57,10 @@ class Tile extends StatelessWidget {
 }
 
 class GamePage extends StatefulWidget {
-  GamePage({super.key});
-
-  final Game _game = Game();
+  const GamePage({super.key});
 
   @override
   State<GamePage> createState() => _GamePageState();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        spacing: 5.0,
-        children: [
-          for (final guess in _game.guesses)
-            Row(
-              spacing: 5.0,
-              children: [
-                for (final letter in guess) Tile(letter.char, letter.type),
-              ]
-            ),
-            GuessInput(
-              onSubmitGuess: (guess) {
-                print(guess);
-              }
-            )
-        ]
-      )
-    );
-  }
 }
 
 class _GamePageState extends State<GamePage> {
@@ -123,21 +97,17 @@ class _GamePageState extends State<GamePage> {
 }
 
 class GuessInput extends StatefulWidget {
-  GuessInput({super.key, required this.onSubmitGuess});
+  const GuessInput({super.key, required this.onSubmitGuess});
 
   final void Function(String) onSubmitGuess;
 
   @override
   State<GuessInput> createState() => _GuessInputState();
-
-  final TextEditingController _textEditingController = TextEditingController();
-  
-  final FocusNode _focusNode = FocusNode();
-
 }
 
 class _GuessInputState extends State<GuessInput> {
   final TextEditingController _textEditingController = TextEditingController();
+  
   final FocusNode _focusNode = FocusNode();
 
   @override
